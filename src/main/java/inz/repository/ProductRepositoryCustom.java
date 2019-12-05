@@ -15,7 +15,7 @@ public interface ProductRepositoryCustom {
     List<Product> getAllProductsFromCategory(String category);
     List<Product> getAllProductsFromShop(Shop shop);
     List<Product> getAllProductsFromShop(String shop);
-    List<Product> getAllProductsFromFavourite(Favourite favourite);
+    List<Product> getAllProductsFromFavourite(Order order);
     List<Product> getAllProductsFromCart(Cart cart);
     List<Product> getAllProductsFromFavourite(int favouriteid);
     List<Product> getAllProductsFromCart(int cartid);

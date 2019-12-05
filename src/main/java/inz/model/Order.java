@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 @Entity
 @Table(name = "favourite")
-public class Favourite implements Serializable {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +19,9 @@ public class Favourite implements Serializable {
     @Column(name = "name")
     private String name;
 
-    public Favourite() {}
+    public Order() {}
 
-    public Favourite(Integer favouriteId, Integer userId) {
+    public Order(Integer favouriteId, Integer userId) {
         this.favouriteId = favouriteId;
         this.userId = userId;
     }

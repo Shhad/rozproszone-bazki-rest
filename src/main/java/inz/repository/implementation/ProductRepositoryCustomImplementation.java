@@ -96,9 +96,9 @@ public class ProductRepositoryCustomImplementation implements ProductRepositoryC
     }
 
     @Override
-    public List<Product> getAllProductsFromFavourite(Favourite favourite) {
+    public List<Product> getAllProductsFromFavourite(Order order) {
         Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.product WHERE productid IN (SELECT DISTINCT productid FROM inzynierka.favouriteproducts WHERE favouriteid = ?)", Product.class);
-        query.setParameter(1, favourite.getFavouriteId());
+        query.setParameter(1, order.getFavouriteId());
 
         return query.getResultList();
     }

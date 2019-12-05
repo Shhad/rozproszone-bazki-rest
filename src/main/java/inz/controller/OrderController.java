@@ -1,9 +1,9 @@
 package inz.controller;
 
-import inz.model.Favourite;
-import inz.model.FavouriteProducts;
-import inz.repository.FavouriteProductsRepository;
-import inz.repository.FavouriteRepository;
+import inz.model.Order;
+import inz.model.OrderProducts;
+import inz.repository.OrderProductsRepository;
+import inz.repository.OrderRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/favourite")
-public class FavouriteController {
+public class OrderController {
 
     @Autowired
-    private FavouriteRepository favouriteRepository;
+    private OrderRepository favouriteRepository;
 
     @Autowired
-    private FavouriteProductsRepository favouriteProductsRepository;
+    private OrderProductsRepository orderProductsRepository;
     
     @Autowired
-    private FavouriteProductsRepository fpRepository;
+    private OrderProductsRepository fpRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
+    public ResponseEntity<?> addFavourite(@RequestBody Order order) {
         JSONObject response = new JSONObject();
         try {
-            favourite.setFavouriteId(new Integer((int)favouriteRepository.count() + 1));
-            favouriteRepository.saveAndFlush(favourite);
+            order.setFavouriteId(new Integer((int)favouriteRepository.count() + 1));
+            favouriteRepository.saveAndFlush(order);
 
             response.put("status", "ok");
 
@@ -55,12 +55,12 @@ public class FavouriteController {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(body);
 
-            FavouriteProducts favouriteProducts = new FavouriteProducts();
-            favouriteProducts.setFavouriteId(new Integer(json.get("favouriteid").toString()));
-            favouriteProducts.setFavouriteId(new Integer(json.get("productid").toString()));
-            favouriteProducts.setId(new Integer((int)favouriteProductsRepository.count() + 1));
+            OrderProducts orderProducts = new OrderProducts();
+            orderProducts.setFavouriteId(new Integer(json.get("favouriteid").toString()));
+            orderProducts.setFavouriteId(new Integer(json.get("productid").toString()));
+            orderProducts.setId(new Integer((int) orderProductsRepository.count() + 1));
 
-            favouriteProductsRepository.saveAndFlush(favouriteProducts);
+            orderProductsRepository.saveAndFlush(orderProducts);
 
             response.put("status", "ok");
 
@@ -93,7 +93,7 @@ public class FavouriteController {
     public ResponseEntity<?> deleteProductFromFavourite(@PathVariable("favouriteid") int favouriteid, @PathVariable("productid") int productid) {
     	JSONObject response = new JSONObject();
         try {
-        	favouriteProductsRepository.deleteProduct(productid, favouriteid);
+        	orderProductsRepository.deleteProduct(productid, favouriteid);
         	
             response.put("status", "ok");
 
